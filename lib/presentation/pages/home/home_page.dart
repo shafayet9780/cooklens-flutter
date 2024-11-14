@@ -7,8 +7,31 @@ import 'widgets/category_list/category_list.dart';
 import 'widgets/recipe_grid/recipe_grid.dart';
 import '../../widgets/common/section_title.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    // Simulate network delay
+    await Future.delayed(const Duration(seconds: 4));
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +62,9 @@ class HomePage extends StatelessWidget {
               ]),
             ),
           ),
-          const SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            sliver: RecipeGrid(),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: RecipeGrid(isLoading: _isLoading),
           ),
         ],
       ),

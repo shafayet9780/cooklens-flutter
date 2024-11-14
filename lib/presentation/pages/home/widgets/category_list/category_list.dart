@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'category_card.dart';
+import 'category_shimmer.dart';
 import '../../models/category_item.dart';
 
 class CategoryList extends StatelessWidget {
-  const CategoryList({super.key});
+  final bool isLoading;
+  
+  const CategoryList({
+    super.key,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return SizedBox(
+        height: 120,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 6, // Show 6 shimmer items
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: const CategoryCardShimmer()
+                .animate()
+                .fadeIn(delay: Duration(milliseconds: 50 * index)),
+            );
+          },
+        ),
+      );
+    }
+
     return SizedBox(
       height: 120,
       child: ListView.builder(
@@ -20,12 +45,9 @@ class CategoryList extends StatelessWidget {
             onTap: () {
               // TODO: Navigate to category
             },
-          ).animate().fadeIn(
-            delay: Duration(milliseconds: 100 * index),
-          ).slideX(
-            begin: 0.2,
-            delay: Duration(milliseconds: 100 * index),
-          );
+          ).animate()
+            .fadeIn(delay: Duration(milliseconds: 100 * index))
+            .slideX(begin: 0.2, delay: Duration(milliseconds: 100 * index));
         },
       ),
     );

@@ -2,29 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'recipe_card.dart';
+import 'recipe_shimmer.dart';
 import '../../models/recipe_preview.dart';
 
 class RecipeGrid extends StatelessWidget {
-  const RecipeGrid({super.key});
+  final bool isLoading;
+
+  const RecipeGrid({super.key, required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return SliverMasonryGrid.count(
+        crossAxisCount: 2,
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+        childCount: 6, // Show 6 shimmer items
+        itemBuilder: (context, index) {
+          return const RecipeCardShimmer()
+              .animate()
+              .fadeIn(delay: Duration(milliseconds: 50 * index));
+        },
+      );
+    }
+
     return SliverMasonryGrid.count(
       crossAxisCount: 2,
       mainAxisSpacing: 16,
       crossAxisSpacing: 16,
+      childCount: _demoRecipes.length,
       itemBuilder: (context, index) {
         return RecipeCard(
-          recipe: _demoRecipes[index % _demoRecipes.length],
+          recipe: _demoRecipes[index],
           onTap: () {
             // TODO: Navigate to recipe detail
           },
-        ).animate().fadeIn(
-          delay: Duration(milliseconds: 100 * index),
-        ).slideY(
-          begin: 0.2,
-          delay: Duration(milliseconds: 100 * index),
-        );
+        )
+            .animate()
+            .fadeIn(delay: Duration(milliseconds: 100 * index))
+            .slideY(begin: 0.2, delay: Duration(milliseconds: 100 * index));
       },
     );
   }
