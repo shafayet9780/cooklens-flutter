@@ -1,1 +1,3 @@
-# cooklens-flutter
+# cooklens
+
+A new Flutter project.

@@ -1,0 +1,38 @@
+📦 lib/
+├── core/
+│   ├── config/
+│   │   ├── app_config.dart          # Environment-specific configurations
+│   │   └── build_config.dart        # Build-time configurations
+│   ├── di/
+│   │   └── injection.dart           # Dependency injection setup
+│   ├── network/
+│   │   ├── api_client.dart          # HTTP client with interceptors
+│   │   └── network_info.dart        # Network state management
+│   ├── storage/
+│   │   ├── secure_storage.dart      # Encrypted local storage
+│   │   └── cache_manager.dart       # Custom cache implementation
+│   ├── theme/
+│   │   ├── app_theme.dart           # Theme configuration
+│   │   ├── colors.dart              # Color palette
+│   │   └── dimensions.dart          # Responsive dimensions
+│   └── utils/
+│       ├── extensions/              # Dart extensions
+│       ├── mixins/                  # Reusable mixins
+│       └── helpers/                 # Utility functions
+├── domain/
+│   ├── entities/                    # Core business objects
+│   ├── repositories/                # Repository interfaces
+│   ├── usecases/                    # Business logic units
+│   └── value_objects/               # Domain-specific value objects
+├── data/
+│   ├── datasources/
+│   │   ├── remote/                  # API implementations
+│   │   └── local/                   # Local storage implementations
+│   ├── models/                      # Data transfer objects
+│   └── repositories/                # Repository implementations
+├── presentation/
+│   ├── blocs/                      # State management
+│   ├── pages/                      # Screen implementations
+│   ├── widgets/                    # Reusable UI components
+│   └── navigation/                 # Navigation management
+└── main.dart
